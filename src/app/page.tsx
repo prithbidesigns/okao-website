@@ -60,7 +60,7 @@ export default function Home() {
       {/* decorative field */}
       <RegistrationMark className="pointer-events-none absolute left-[6%] top-[18%] h-8 w-8 text-okao-cream/40 hidden sm:block" />
       <CrossMark className="pointer-events-none absolute right-[9%] top-[12%] h-4 w-4 text-okao-cream/50 hidden sm:block" />
-      <Dots className="pointer-events-none absolute left-[10%] bottom-[30%] h-3 w-14 text-okao-cream/40 hidden md:block" />
+      <Dots className="pointer-events-none absolute left-[10%] bottom-[30%] h-3 w-14 text-okao-cream/40 hidden sm:block" />
       <ArrowMark className="pointer-events-none absolute right-[7%] bottom-[40%] h-6 w-6 text-okao-cream/40 hidden sm:block" />
       <span className="pointer-events-none absolute right-[5%] top-[6%] text-xs tracking-[0.3em] text-okao-cream/40 hidden sm:block">
         01
@@ -103,14 +103,14 @@ export default function Home() {
         variants={fadeUp(0.45, !!reduceMotion)}
         initial="hidden"
         animate="show"
-        className="relative overflow-hidden px-6 pb-4 pt-6 text-center sm:pb-8 sm:pt-16"
+        className="relative overflow-hidden px-6 pb-4 pt-20 text-center sm:pb-8 sm:pt-16"
       >
         {/* arc sweep with pin markers, echoing a dial/compass */}
         <svg
           aria-hidden="true"
           viewBox="0 0 800 200"
           preserveAspectRatio="none"
-          className="pointer-events-none absolute inset-x-0 top-0 hidden h-[140px] w-full text-okao-cream/35 sm:block"
+          className="pointer-events-none absolute inset-x-0 top-0 block h-[110px] w-full text-okao-cream/35 sm:h-[140px]"
           fill="none"
         >
           <path d="M20 170 Q400 -30 780 120" stroke="currentColor" strokeWidth="1.5" />
@@ -120,19 +120,19 @@ export default function Home() {
         </svg>
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute left-[15%] top-[62px] hidden -rotate-6 whitespace-nowrap text-[0.6rem] font-medium uppercase tracking-[0.2em] text-okao-cream/45 sm:block"
+          className="pointer-events-none absolute left-[13%] top-[46px] block -rotate-6 whitespace-nowrap text-[0.55rem] font-medium uppercase tracking-[0.15em] text-okao-cream/45 sm:left-[15%] sm:top-[62px] sm:text-[0.6rem] sm:tracking-[0.2em]"
         >
           Mark the date
         </span>
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-[6px] hidden -translate-x-1/2 rotate-1 whitespace-nowrap text-[0.6rem] font-medium uppercase tracking-[0.2em] text-okao-cream/45 sm:block"
+          className="pointer-events-none absolute left-1/2 top-[2px] block -translate-x-1/2 rotate-1 whitespace-nowrap text-[0.55rem] font-medium uppercase tracking-[0.15em] text-okao-cream/45 sm:top-[6px] sm:text-[0.6rem] sm:tracking-[0.2em]"
         >
           Set your clock
         </span>
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute left-[82.5%] top-[42px] hidden -translate-x-1/2 rotate-6 whitespace-nowrap text-[0.6rem] font-medium uppercase tracking-[0.2em] text-okao-cream/45 sm:block"
+          className="pointer-events-none absolute left-[82%] top-[32px] block -translate-x-1/2 rotate-6 whitespace-nowrap text-[0.55rem] font-medium uppercase tracking-[0.15em] text-okao-cream/45 sm:left-[82.5%] sm:top-[42px] sm:text-[0.6rem] sm:tracking-[0.2em]"
         >
           Don&rsquo;t be late
         </span>
