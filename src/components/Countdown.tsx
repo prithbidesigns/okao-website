@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { LAUNCH_DATE_ISO } from "@/lib/config";
 
 type TimeLeft = {
@@ -28,23 +28,25 @@ function pad(n: number) {
 }
 
 function Unit({ value, label }: { value: number; label: string }) {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <div className="flex flex-col items-center gap-1 sm:gap-2">
-      <div className="relative h-[1em] w-[2.3ch] overflow-hidden text-center tabular-nums leading-none text-[clamp(2.5rem,9vw,5.5rem)] font-extrabold">
+    <div className="flex flex-col items-center gap-2 px-3 first:pl-0 last:pr-0 sm:gap-3 sm:px-6">
+      <div className="relative h-[1em] w-[2.1ch] overflow-hidden text-center tabular-nums leading-none text-[clamp(2rem,8vw,5rem)] font-extrabold sm:w-[2.3ch]">
         <AnimatePresence mode="popLayout">
           <motion.span
             key={value}
-            initial={{ y: "60%", opacity: 0 }}
+            initial={reduceMotion ? false : { y: "60%", opacity: 0 }}
             animate={{ y: "0%", opacity: 1 }}
-            exit={{ y: "-60%", opacity: 0 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
+            exit={reduceMotion ? undefined : { y: "-60%", opacity: 0 }}
+            transition={{ duration: reduceMotion ? 0 : 0.35, ease: "easeOut" }}
             className="absolute inset-0"
           >
             {pad(value)}
           </motion.span>
         </AnimatePresence>
       </div>
-      <span className="text-[0.65rem] sm:text-xs tracking-[0.3em] font-medium text-okao-cream/70">
+      <span className="text-[0.55rem] tracking-[0.25em] font-medium text-okao-cream/70 sm:text-xs sm:tracking-[0.3em]">
         {label}
       </span>
     </div>
@@ -82,7 +84,7 @@ export default function Countdown() {
 
   return (
     <div
-      className="grid grid-cols-4 gap-3 sm:gap-8 md:gap-12"
+      className="flex divide-x divide-okao-cream/25"
       role="timer"
       aria-live="polite"
       aria-label={`${timeLeft.days} days, ${timeLeft.hours} hours, ${timeLeft.minutes} minutes, ${timeLeft.seconds} seconds until launch`}

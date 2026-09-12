@@ -20,11 +20,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "OKAO — Bringing Street Culture Home",
   description:
-    "OKAO is bringing street culture home to Bhadra, Odisha. Opening October 1, 2026.",
+    "OKAO is bringing street culture home to Bhadrak, Odisha. Opening October 1, 2026.",
   openGraph: {
     title: "OKAO — Bringing Street Culture Home",
     description:
-      "OKAO is bringing street culture home to Bhadra, Odisha. Opening October 1, 2026.",
+      "OKAO is bringing street culture home to Bhadrak, Odisha. Opening October 1, 2026.",
     url: siteUrl,
     siteName: "OKAO",
     locale: "en_IN",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "OKAO — Bringing Street Culture Home",
     description:
-      "OKAO is bringing street culture home to Bhadra, Odisha. Opening October 1, 2026.",
+      "OKAO is bringing street culture home to Bhadrak, Odisha. Opening October 1, 2026.",
   },
 };
 
@@ -44,7 +44,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${poppins.variable} ${fredoka.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-okao-orange text-okao-cream overflow-x-hidden">
+      <body
+        className="min-h-full flex flex-col bg-okao-orange text-okao-cream overflow-x-hidden"
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>

@@ -1,9 +1,10 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import Countdown from "@/components/Countdown";
 import Marquee from "@/components/Marquee";
 import Logo from "@/components/Logo";
+import FloatingIcons from "@/components/FloatingIcons";
 import {
   ArrowMark,
   CrossMark,
@@ -12,7 +13,13 @@ import {
 } from "@/components/Decorations";
 import { WHATSAPP_GROUP_URL, INSTAGRAM_URL } from "@/lib/config";
 
-function fadeUp(delay = 0): Variants {
+function fadeUp(delay = 0, reduceMotion = false): Variants {
+  if (reduceMotion) {
+    return {
+      hidden: { opacity: 0 },
+      show: { opacity: 1, transition: { duration: 0.4, delay: delay / 3 } },
+    };
+  }
   return {
     hidden: { opacity: 0, y: 24 },
     show: {
@@ -42,118 +49,122 @@ function InstagramIcon() {
 }
 
 export default function Home() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <main className="relative flex flex-1 flex-col overflow-hidden">
+      <Marquee durationSeconds={80} border="border-b" />
+
+      <FloatingIcons />
+
       {/* decorative field */}
       <RegistrationMark className="pointer-events-none absolute left-[6%] top-[18%] h-8 w-8 text-okao-cream/40 hidden sm:block" />
-      <CrossMark className="pointer-events-none absolute right-[9%] top-[12%] h-4 w-4 text-okao-cream/50" />
+      <CrossMark className="pointer-events-none absolute right-[9%] top-[12%] h-4 w-4 text-okao-cream/50 hidden sm:block" />
       <Dots className="pointer-events-none absolute left-[10%] bottom-[30%] h-3 w-14 text-okao-cream/40 hidden md:block" />
       <ArrowMark className="pointer-events-none absolute right-[7%] bottom-[40%] h-6 w-6 text-okao-cream/40 hidden sm:block" />
       <span className="pointer-events-none absolute right-[5%] top-[6%] text-xs tracking-[0.3em] text-okao-cream/40 hidden sm:block">
         01
       </span>
 
-      {/* header */}
-      <motion.header
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="flex items-center justify-between px-6 py-5 sm:px-10 sm:py-7"
-      >
-        <span className="font-wordmark text-lg sm:text-xl font-semibold tracking-wide">
-          OKAO
-        </span>
-        <span className="text-[0.65rem] sm:text-xs font-medium tracking-[0.35em] text-okao-cream/80">
-          BHADRA, ODISHA
-        </span>
-      </motion.header>
-
       {/* hero */}
-      <section className="flex flex-col items-center px-6 pt-6 pb-10 text-center sm:pt-10">
+      <section className="flex flex-col items-center px-6 pt-10 pb-8 text-center sm:pt-14">
         <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.94 }}
+          animate={reduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+          transition={{ duration: reduceMotion ? 0.4 : 0.8, ease: "easeOut" }}
         >
           <Logo className="text-[22vw] leading-[0.85] sm:text-[15vw] md:text-[13rem]" />
         </motion.div>
 
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.25 }}
-          className="mt-1 text-2xl sm:text-4xl font-medium tracking-wide"
-        >
-          ଓକାଓ
-        </motion.p>
-
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.4 }}
-          className="mt-6 max-w-xs sm:max-w-none text-base sm:text-xl font-medium tracking-wide text-okao-cream/90"
+          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }}
+          animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: reduceMotion ? 0.1 : 0.25 }}
+          className="mt-4 max-w-xs sm:max-w-none text-base sm:text-xl font-medium tracking-wide text-okao-cream/90"
         >
           Bringing street culture home.
         </motion.p>
+
+        <motion.div
+          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+          animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: reduceMotion ? 0.15 : 0.35 }}
+          className="mt-4 flex items-center gap-1.5 text-[0.65rem] font-semibold tracking-[0.35em] text-okao-cream/70 sm:text-xs"
+        >
+          <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0" fill="currentColor" aria-hidden="true">
+            <path d="M12 2c-4.42 0-8 3.58-8 8 0 5.25 6.5 11.19 7.06 11.7a1.5 1.5 0 0 0 1.88 0C13.5 21.19 20 15.25 20 10c0-4.42-3.58-8-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
+          </svg>
+          BHADRAK, ODISHA
+        </motion.div>
       </section>
 
-      {/* launch announcement */}
+      {/* launch announcement + countdown */}
       <motion.section
-        variants={fadeUp(0.55)}
+        variants={fadeUp(0.45, !!reduceMotion)}
         initial="hidden"
         animate="show"
-        className="flex flex-col items-center gap-3 px-6 py-12 text-center sm:py-16"
+        className="relative overflow-hidden px-6 pb-4 pt-6 text-center sm:pb-8 sm:pt-16"
       >
-        <span className="text-xs sm:text-sm font-semibold tracking-[0.4em] text-okao-cream/80">
-          WE&rsquo;RE OPENING
+        {/* arc sweep with pin markers, echoing a dial/compass */}
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 800 200"
+          preserveAspectRatio="none"
+          className="pointer-events-none absolute inset-x-0 top-0 hidden h-[140px] w-full text-okao-cream/35 sm:block"
+          fill="none"
+        >
+          <path d="M20 170 Q400 -30 780 120" stroke="currentColor" strokeWidth="1.5" />
+          <circle cx="120" cy="140" r="5" stroke="currentColor" strokeWidth="1.5" />
+          <circle cx="400" cy="52" r="5" stroke="currentColor" strokeWidth="1.5" />
+          <circle cx="660" cy="108" r="5" stroke="currentColor" strokeWidth="1.5" />
+        </svg>
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute left-[15%] top-[62px] hidden -rotate-6 whitespace-nowrap text-[0.6rem] font-medium uppercase tracking-[0.2em] text-okao-cream/45 sm:block"
+        >
+          Mark the date
         </span>
-        <h1 className="text-[clamp(2.2rem,10vw,6rem)] font-extrabold leading-none tracking-tight">
-          01 OCTOBER 2026
-        </h1>
-        <span className="text-sm sm:text-base tracking-[0.3em] text-okao-cream/70">
-          01.10.26
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-[6px] hidden -translate-x-1/2 rotate-1 whitespace-nowrap text-[0.6rem] font-medium uppercase tracking-[0.2em] text-okao-cream/45 sm:block"
+        >
+          Set your clock
         </span>
-      </motion.section>
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute left-[82.5%] top-[42px] hidden -translate-x-1/2 rotate-6 whitespace-nowrap text-[0.6rem] font-medium uppercase tracking-[0.2em] text-okao-cream/45 sm:block"
+        >
+          Don&rsquo;t be late
+        </span>
 
-      {/* countdown */}
-      <motion.section
-        variants={fadeUp(0.75)}
-        initial="hidden"
-        animate="show"
-        className="flex flex-col items-center gap-6 px-6 py-8 text-center"
-      >
-        <span className="text-[0.65rem] sm:text-xs font-semibold tracking-[0.4em] text-okao-cream/60">
-          THE COUNTDOWN BEGINS
-        </span>
-        <Countdown />
-      </motion.section>
+        <div className="relative z-10">
+          <span className="text-xs font-semibold tracking-[0.5em] text-okao-cream/70 sm:text-sm">
+            WE&rsquo;RE OPENING
+          </span>
 
-      {/* supporting copy */}
-      <motion.section
-        variants={fadeUp(0.95)}
-        initial="hidden"
-        animate="show"
-        className="px-6 py-10 text-center"
-      >
-        <p className="mx-auto max-w-md text-lg sm:text-2xl font-semibold leading-snug tracking-tight">
-          A NEW STREET CULTURE STORE
-          <br />
-          IS COMING HOME.
-        </p>
+          <h1 className="mt-4 text-[clamp(2.4rem,10vw,6.5rem)] font-extrabold leading-[0.95] tracking-tight">
+            <span className="block sm:inline">01 OCTOBER</span>{" "}
+            <span className="block text-okao-cream/40 sm:inline">2026</span>
+          </h1>
+
+          <div className="mx-auto mt-10 flex max-w-lg justify-center sm:mt-14">
+            <Countdown />
+          </div>
+        </div>
       </motion.section>
 
       {/* CTAs */}
       <motion.section
-        variants={fadeUp(1.1)}
+        variants={fadeUp(0.85, !!reduceMotion)}
         initial="hidden"
         animate="show"
-        className="flex flex-col items-center gap-4 px-6 pb-16 pt-4"
+        className="flex flex-col items-center gap-4 px-6 pb-16 pt-6"
       >
         <a
           href={WHATSAPP_GROUP_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex w-full max-w-xs items-center justify-center gap-2 whitespace-nowrap rounded-full border border-okao-cream bg-okao-cream px-6 sm:px-8 py-4 text-sm sm:text-base font-bold tracking-wide text-okao-orange transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_0_0_rgba(249,237,220,0.25)] active:translate-y-0 sm:w-auto sm:max-w-none"
+          className="group flex w-full max-w-xs items-center justify-center gap-2 whitespace-nowrap rounded-full border border-okao-cream bg-okao-cream px-6 sm:px-8 py-4 text-sm sm:text-base font-bold tracking-wide text-okao-orange transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_0_0_rgba(249,237,220,0.25)] active:translate-y-0 sm:w-auto sm:max-w-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-okao-cream focus-visible:ring-offset-2 focus-visible:ring-offset-okao-orange"
         >
           <WhatsAppIcon />
           JOIN THE WHATSAPP GROUP
@@ -163,14 +174,12 @@ export default function Home() {
           href={INSTAGRAM_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex w-full max-w-xs items-center justify-center gap-2 whitespace-nowrap rounded-full border border-okao-cream/70 bg-okao-cream/90 px-6 sm:px-8 py-3.5 text-sm font-semibold tracking-wide text-okao-orange transition-transform duration-200 hover:-translate-y-0.5 hover:bg-okao-cream active:translate-y-0 sm:w-auto sm:max-w-none"
+          className="group flex w-full max-w-xs items-center justify-center gap-2 whitespace-nowrap rounded-full border border-okao-cream/70 bg-okao-cream/90 px-6 sm:px-8 py-3.5 text-sm font-semibold tracking-wide text-okao-orange transition-transform duration-200 hover:-translate-y-0.5 hover:bg-okao-cream active:translate-y-0 sm:w-auto sm:max-w-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-okao-cream focus-visible:ring-offset-2 focus-visible:ring-offset-okao-orange"
         >
           <InstagramIcon />
           FOLLOW INSTAGRAM
         </a>
       </motion.section>
-
-      <Marquee />
     </main>
   );
 }
