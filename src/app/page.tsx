@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import Countdown from "@/components/Countdown";
 import Marquee from "@/components/Marquee";
 import Logo from "@/components/Logo";
 import FloatingIcons from "@/components/FloatingIcons";
@@ -98,7 +97,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* launch announcement + countdown */}
+      {/* launch announcement */}
       <motion.section
         variants={fadeUp(0.45, !!reduceMotion)}
         initial="hidden"
@@ -143,13 +142,9 @@ export default function Home() {
           </span>
 
           <h1 className="mt-4 text-[clamp(2.4rem,10vw,6.5rem)] font-extrabold leading-[0.95] tracking-tight">
-            <span className="block sm:inline">01 OCTOBER</span>{" "}
-            <span className="block text-okao-cream/40 sm:inline">2026</span>
+            <span className="block sm:inline">SOON</span>{" "}
+            <span className="block text-okao-cream/40 sm:inline">THIS MONTH</span>
           </h1>
-
-          <div className="mx-auto mt-10 flex max-w-lg justify-center sm:mt-14">
-            <Countdown />
-          </div>
         </div>
       </motion.section>
 
