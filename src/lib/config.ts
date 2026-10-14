@@ -14,6 +14,18 @@ export const WHATSAPP_GROUP_URL =
 export const INSTAGRAM_URL =
   "https://www.instagram.com/okao_in?stkn=MWJwNjZoYzdncm1lZQ%3D%3D&utm_source=qr";
 
-// October 1, 2026, 12:00 AM IST expressed as a fixed UTC offset (+05:30)
+// October 16, 2026, 12:00 AM IST expressed as a fixed UTC offset (+05:30)
 // so the countdown is correct regardless of the visitor's local timezone.
-export const LAUNCH_DATE_ISO = "2026-10-01T00:00:00+05:30";
+export const LAUNCH_DATE_ISO = "2026-10-16T00:00:00+05:30";
+
+// Shop address shown on the page, one line per entry.
+export const SHOP_ADDRESS_LINES = [
+  "Dakhinakali Nagar",
+  "Beside The Filmerpro Studio",
+  "New Bus Stand, Bhadrak",
+  "Pin - 756100",
+];
+
+// Opens the shop's exact pin in Google Maps.
+export const SHOP_MAPS_URL =
+  "https://www.google.com/maps?q=21.0735025,86.5039772&z=17&hl=en";

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion, type Variants } from "framer-motion";
+import Countdown from "@/components/Countdown";
 import Marquee from "@/components/Marquee";
 import Logo from "@/components/Logo";
 import FloatingIcons from "@/components/FloatingIcons";
@@ -10,7 +11,12 @@ import {
   Dots,
   RegistrationMark,
 } from "@/components/Decorations";
-import { WHATSAPP_GROUP_URL, INSTAGRAM_URL } from "@/lib/config";
+import {
+  WHATSAPP_GROUP_URL,
+  INSTAGRAM_URL,
+  SHOP_ADDRESS_LINES,
+  SHOP_MAPS_URL,
+} from "@/lib/config";
 
 function fadeUp(delay = 0, reduceMotion = false): Variants {
   if (reduceMotion) {
@@ -33,6 +39,14 @@ function WhatsAppIcon() {
   return (
     <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
       <path d="M12.02 2C6.5 2 2.02 6.48 2.02 12c0 1.87.5 3.63 1.4 5.14L2 22l5.01-1.4A9.9 9.9 0 0 0 12.02 22c5.52 0 10-4.48 10-10s-4.48-10-10-10Zm5.85 14.13c-.25.7-1.24 1.28-2.02 1.44-.55.11-1.26.2-3.66-.78-2.99-1.24-4.92-4.27-5.07-4.47-.15-.2-1.21-1.61-1.21-3.07s.75-2.18 1.03-2.48c.25-.27.55-.34.73-.34.18 0 .37.001.53.008.17.007.4-.065.62.48.25.6.85 2.07.92 2.22.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.45.53-.15.15-.3.31-.13.6.17.3.75 1.24 1.62 2.01 1.11.99 2.05 1.3 2.35 1.45.3.15.47.12.65-.07.18-.2.75-.87.95-1.17.2-.3.4-.25.67-.15.28.1 1.75.83 2.05.98.3.15.5.22.57.35.08.13.08.72-.17 1.42Z" />
+    </svg>
+  );
+}
+
+function PinIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={`shrink-0 ${className}`} fill="currentColor" aria-hidden="true">
+      <path d="M12 2c-4.42 0-8 3.58-8 8 0 5.25 6.5 11.19 7.06 11.7a1.5 1.5 0 0 0 1.88 0C13.5 21.19 20 15.25 20 10c0-4.42-3.58-8-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
     </svg>
   );
 }
@@ -66,7 +80,7 @@ export default function Home() {
       </span>
 
       {/* hero */}
-      <section className="flex flex-col items-center px-6 pt-10 pb-8 text-center sm:pt-14">
+      <section className="flex flex-col items-center px-6 pt-10 pb-2 text-center sm:pt-14">
         <motion.div
           initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.94 }}
           animate={reduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
@@ -83,18 +97,6 @@ export default function Home() {
         >
           Bringing street culture home.
         </motion.p>
-
-        <motion.div
-          initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
-          animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: reduceMotion ? 0.15 : 0.35 }}
-          className="mt-4 flex items-center gap-1.5 text-[0.65rem] font-semibold tracking-[0.35em] text-okao-cream/70 sm:text-xs"
-        >
-          <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0" fill="currentColor" aria-hidden="true">
-            <path d="M12 2c-4.42 0-8 3.58-8 8 0 5.25 6.5 11.19 7.06 11.7a1.5 1.5 0 0 0 1.88 0C13.5 21.19 20 15.25 20 10c0-4.42-3.58-8-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
-          </svg>
-          BHADRAK, ODISHA
-        </motion.div>
       </section>
 
       {/* launch announcement */}
@@ -102,50 +104,69 @@ export default function Home() {
         variants={fadeUp(0.45, !!reduceMotion)}
         initial="hidden"
         animate="show"
-        className="relative overflow-hidden px-6 pb-4 pt-20 text-center sm:pb-8 sm:pt-16"
+        className="relative px-6 pb-4 pt-6 text-center sm:pb-8 sm:pt-8"
       >
-        {/* arc sweep with pin markers, echoing a dial/compass */}
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 800 200"
-          preserveAspectRatio="none"
-          className="pointer-events-none absolute inset-x-0 top-0 block h-[110px] w-full text-okao-cream/35 sm:h-[140px]"
-          fill="none"
-        >
-          <path d="M20 170 Q400 -30 780 120" stroke="currentColor" strokeWidth="1.5" />
-          <circle cx="120" cy="140" r="5" stroke="currentColor" strokeWidth="1.5" />
-          <circle cx="400" cy="52" r="5" stroke="currentColor" strokeWidth="1.5" />
-          <circle cx="660" cy="108" r="5" stroke="currentColor" strokeWidth="1.5" />
-        </svg>
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute left-[13%] top-[46px] block -rotate-6 whitespace-nowrap text-[0.55rem] font-medium uppercase tracking-[0.15em] text-okao-cream/45 sm:left-[15%] sm:top-[62px] sm:text-[0.6rem] sm:tracking-[0.2em]"
-        >
-          Mark the date
-        </span>
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-[2px] block -translate-x-1/2 rotate-1 whitespace-nowrap text-[0.55rem] font-medium uppercase tracking-[0.15em] text-okao-cream/45 sm:top-[6px] sm:text-[0.6rem] sm:tracking-[0.2em]"
-        >
-          Set your clock
-        </span>
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute left-[82%] top-[32px] block -translate-x-1/2 rotate-6 whitespace-nowrap text-[0.55rem] font-medium uppercase tracking-[0.15em] text-okao-cream/45 sm:left-[82.5%] sm:top-[42px] sm:text-[0.6rem] sm:tracking-[0.2em]"
-        >
-          Don&rsquo;t be late
-        </span>
-
         <div className="relative z-10">
           <span className="text-xs font-semibold tracking-[0.5em] text-okao-cream/70 sm:text-sm">
             WE&rsquo;RE OPENING
           </span>
 
-          <h1 className="mt-4 text-[clamp(2.4rem,10vw,6.5rem)] font-extrabold leading-[0.95] tracking-tight">
-            <span className="block sm:inline">SOON</span>{" "}
-            <span className="block text-okao-cream/40 sm:inline">THIS MONTH</span>
+          <h1 className="mt-2 flex flex-col items-center">
+            <span className="sr-only">We&rsquo;re opening on 16 October 2026</span>
+            <span
+              aria-hidden="true"
+              className="text-[clamp(8rem,42vw,18rem)] font-extrabold leading-[0.85] tracking-tighter"
+            >
+              16
+            </span>
+            <span
+              aria-hidden="true"
+              className="mt-1 text-[clamp(1.6rem,7vw,3.5rem)] font-extrabold leading-none tracking-tight"
+            >
+              OCTOBER <span className="text-okao-cream/40">2026</span>
+            </span>
           </h1>
         </div>
+      </motion.section>
+
+      {/* shop location */}
+      <motion.section
+        variants={fadeUp(0.65, !!reduceMotion)}
+        initial="hidden"
+        animate="show"
+        className="flex justify-center px-6 pt-6 sm:pt-8"
+      >
+        <a
+          href={SHOP_MAPS_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex w-full max-w-md flex-col items-center rounded-3xl border border-okao-cream/40 px-6 py-7 text-center transition-colors duration-200 hover:border-okao-cream hover:bg-okao-cream/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-okao-cream focus-visible:ring-offset-2 focus-visible:ring-offset-okao-orange"
+        >
+          <span className="flex items-center gap-1.5 text-xs font-semibold tracking-[0.4em] text-okao-cream/70 sm:text-sm">
+            <PinIcon className="h-4 w-4" />
+            FIND US AT
+          </span>
+          <address className="mt-3 text-lg font-bold not-italic leading-snug sm:text-xl">
+            {SHOP_ADDRESS_LINES.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </address>
+          <span className="mt-5 inline-flex items-center gap-2 rounded-full border border-okao-cream px-5 py-2.5 text-sm font-semibold tracking-wide transition-colors duration-200 group-hover:bg-okao-cream group-hover:text-okao-orange">
+            GET DIRECTIONS
+          </span>
+        </a>
+      </motion.section>
+
+      {/* countdown */}
+      <motion.section
+        variants={fadeUp(0.75, !!reduceMotion)}
+        initial="hidden"
+        animate="show"
+        className="flex justify-center px-6 pt-12 pb-4 sm:pt-14"
+      >
+        <Countdown />
       </motion.section>
 
       {/* CTAs */}
